@@ -1,0 +1,37 @@
+services:
+  # 1. Database MySQL
+  db:
+    image: mysql:8.0
+    container_name: snappos_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: snappos_db
+    ports:
+      - "3306:3306"
+    volumes:
+      # Otomatis import database saat container pertama kali dibuat
+      - ./backend/database/snappos.sql:/docker-entrypoint-initdb.d/snappos.sql
+
+  # 2. Service Backend (PHP Apache)
+  backend:
+    build: ./backend
+    container_name: snappos_backend
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: snappos_db
+    depends_on:
+      - db
+
+  # 3. Service Frontend (Vue 3 / Vite)
+  frontend:
+    build: ./frontend
+    container_name: snappos_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
