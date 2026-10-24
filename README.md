@@ -69,3 +69,57 @@ SnapPOS/
 ├── docker-compose.yml
 ├── .gitignore
 └── README.md
+
+---
+
+## Endpoint API
+
+### Konvensi Umum
+| Aspek | Ketentuan |
+| :--- | :--- |
+| **Base URL (Lokal Manual)** | `http://localhost/snappos-api` |
+| **Base URL (Docker)** | `http://localhost:3001` |
+| **Format Bodi** | JSON (`application/json`) |
+| **Format Response Sukses** | `[ { "id": 1, "name": "..." } ]` atau `{ "status": "success", "message": "..." }` |
+| **Format Response Gagal** | `{ "status": "error", "message": "..." }` |
+| **Bahasa Pesan** | Bahasa Indonesia |
+
+### 1. Autentikasi & Pengguna
+| Method | Path | Auth | Keterangan |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/register_store.php` | — | Mendaftarkan toko baru ke database MySQL |
+| `POST` | `/users.php` | — | Mendaftarkan akun pengguna baru (Admin / Kasir) |
+| `POST` | `/login.php` | — | Verifikasi akun masuk & menyimpan sesi toko/role |
+
+### 2. Katalog Produk (`/produk.php`)
+| Method | Path | Auth | Keterangan |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/produk.php` | — | Mengambil seluruh daftar item produk dari tabel `products` |
+| `POST` | `/produk.php` | — | Menambahkan data produk baru ke database |
+| `DELETE` | `/produk.php?id=:id` | Admin | Menghapus data produk dari MySQL berdasarkan ID |
+
+---
+
+## Kode Error API
+
+| Kode HTTP | Arti | Penyebab Umum |
+| :--- | :--- | :--- |
+| `400` | `BAD_REQUEST` | Parameter input tidak lengkap atau format JSON salah |
+| `401` | `INVALID_CREDENTIALS` | Username atau password yang dimasukkan tidak cocok |
+| `404` | `NOT_FOUND` | Endpoint API tidak ditemukan atau ID produk tidak ada |
+| `409` | `USERNAME_EXISTS` | Username sudah terdaftar di database |
+| `500` | `INTERNAL_ERROR` | Koneksi ke database MySQL gagal |
+
+---
+
+## Cara Menjalankan Proyek
+
+Terdapat dua cara untuk menjalankan SnapPOS: Menggunakan **Docker (Direkomendasikan)** atau **Tanpa Docker (Manual XAMPP/Laragon)**.
+
+### Opsi 1 — Dengan Docker (Direkomendasikan)
+Metode paling praktis untuk menjalankan aplikasi tanpa perlu mengonfigurasi Apache atau MySQL secara manual.
+
+1. **Unduh Repositori:**
+   ```bash
+   git clone [https://github.com/Alizah14/snappos.git](https://github.com/Alizah14/snappos.git)
+   cd snappos
