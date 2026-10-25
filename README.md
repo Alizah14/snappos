@@ -344,8 +344,9 @@ Buka DBeaver, klik kanan pada tabel `users` atau `stores`, lalu pilih **Refresh*
 
 ## Catatan Mode Pengembangan & Batasan (Progress 30%)
 
-- **Pilihan Peran Login:** Di halaman login tersedia tombol pilihan peran (**Admin** / **Kasir**). Pilih peran yang diinginkan sebelum memasukkan username dan kata sandi. Untuk berpindah peran, lakukan Logout lalu pilih peran lain di halaman login.
-- **Sesi Login:** Sesi disimpan di `localStorage` browser. Jika sesi sebelumnya masih aktif dan ingin memulai dari awal, lakukan Logout atau Clear LocalStorage.
+- **Pilihan Peran Login:** Di halaman login tersedia tombol pilihan peran (**Admin** / **Kasir**). Pilih peran yang sesuai dengan akunmu, lalu masukkan username dan kata sandi.
+- **Berpindah Akun atau Peran:** Jika sudah login dan ingin masuk dengan peran lain, klik **Logout** terlebih dahulu, lalu pilih peran yang diinginkan di halaman login.
+- **Sesi Login:** Sesi disimpan di `localStorage` browser. Jika sesi lama masih aktif dan ingin memulai dari awal, lakukan Logout atau Clear LocalStorage (tekan `F12` → tab *Application* → *Local Storage* → *Clear*).
 - **Status AI Kualitas Data:** Widget persentase Kualitas Data AI di katalog produk saat ini masih berupa tampilan mockup UI untuk persiapan tahap integrasi model AI selanjutnya.
 - **Import CSV & Export Data:** Tombol operasi massal di sidebar katalog produk masih berupa desain antarmuka dan akan difungsikan di milestone berikutnya.
 - **Mode Docker Frontend:** Frontend di Docker berjalan sebagai server pengembangan Vite. Perubahan kode frontend memerlukan build ulang container (`docker compose up --build -d frontend`).
