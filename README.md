@@ -208,7 +208,7 @@ Cara paling praktis. Tidak perlu memasang PHP, XAMPP, MySQL, atau Node.js secara
    docker compose up --build -d
    ```
 
-   Build pertama membutuhkan beberapa menit karena mengunduh image. Tunggu sekitar 30 detik setelah selesai agar MySQL selesai mengimpor database.
+   Build pertama membutuhkan beberapa menit karena mengunduh image. Setelah selesai, tunggu sekitar 1 sampai 2 menit agar MySQL selesai membuat dan mengimpor database. Selama itu, halaman backend bisa menampilkan error `Connection refused`. Ini normal, cukup muat ulang setelah beberapa saat.
 
 3. **Cek status container:**
 
@@ -335,7 +335,7 @@ Buka DBeaver, klik kanan pada tabel `users` atau `stores`, lalu pilih **Refresh*
 | :--- | :--- |
 | `ports are not available ... port 80` | Apache XAMPP atau program lain memakai port 80. Matikan dulu, lalu jalankan ulang Docker. |
 | `ports are not available ... port 3308` | Ubah angka kiri pada `ports` service `db` di `docker-compose.yml`, misalnya `"3309:3306"`. |
-| `produk.php` menampilkan `Fatal error ... mysqli` | Backend belum terhubung ke database. Pastikan container `snappos_db` berstatus `Up`, tunggu 30 detik, lalu muat ulang. |
+| `produk.php` menampilkan `Fatal error ... mysqli` | Backend belum terhubung ke database. Pada start pertama, MySQL butuh waktu 1 sampai 2 menit untuk siap (pesan `Connection refused` itu normal). Tunggu sebentar lalu muat ulang. Jika tetap gagal, pastikan container `snappos_db` berstatus `Up` dan cek `docker compose logs db`. |
 | `produk.php` menampilkan `[]` atau tabel tidak ditemukan | Database belum terisi. Jalankan `docker compose down -v` lalu `docker compose up --build -d`. |
 | Login menampilkan "Gagal terhubung ke server backend API" | Backend belum berjalan atau Base URL salah. Cek `http://localhost/snappos-api/produk.php` di browser. |
 | `http://localhost:5173` tidak terbuka | Pastikan tidak ada `npm run dev` lain yang berjalan, dan container `snappos_frontend` berstatus `Up`. |
